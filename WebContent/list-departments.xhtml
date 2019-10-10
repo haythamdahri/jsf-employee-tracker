@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<ui:composition template="/WEB-INF/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- Redefine page title -->
+	<ui:define name="title">Departments List</ui:define>
+
+	<!-- Redefine metadata -->
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{departmentController.loadDepartments()}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<!-- @Redefine Content section -->
+	<ui:define name="content">
+		<h2>Departments</h2>
+
+		<h:form>
+			<h:commandLink action="add-department.xhtml"
+				styleClass="btn btn-primary mb-3">
+				<i class="fas fa-folder-plus"></i> Add new department	
+			</h:commandLink>
+		</h:form>
+
+		<h:form>
+			<h:dataTable value="#{departmentController.departments}"
+				var="tempDepartment" styleClass="table text-center">
+				<h:column>
+					<!-- Name column -->
+					<f:facet name="header">Name</f:facet>
+
+					<!-- Column value -->
+				#{tempDepartment.name}
+				</h:column>
+
+				<h:column>
+					<!-- Actions column -->
+					<f:facet name="header">Actions</f:facet>
+
+					<!-- Column value -->
+					<h:commandLink styleClass="btn btn-light"
+						action="#{departmentController.loadDepartment(tempDepartment.id)}">
+						<i class="far fa-edit"></i> Edit	
+					</h:commandLink>
+					|
+					<h:commandLink styleClass="btn btn-danger"
+						onclick="return confirm('Are you sure you want to delete this department?');"
+						action="#{departmentController.deleteDepartment(tempDepartment.id)}">
+						<i class="far fa-trash-alt"></i> Delete
+					</h:commandLink>
+
+				</h:column>
+			</h:dataTable>
+		</h:form>
+
+		<!-- End defined content section -->
+	</ui:define>
+
+</ui:composition>
+

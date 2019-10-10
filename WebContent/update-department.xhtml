@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<ui:composition template="/WEB-INF/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- Redefine page title -->
+	<ui:define name="title">Update the department</ui:define>
+
+	<!-- @Redefine Content section -->
+	<ui:define name="content">
+		<h2>Update the department</h2>
+
+		<h:form>
+			<!-- Hidden field for id -->
+			<h:inputHidden value="#{department.id}" />
+			
+			<!-- Name field -->
+			<div class="form-group">
+				<h:outputLabel>Name:</h:outputLabel>
+				<h:inputText value="#{department.name}" styleClass="form-control"
+					id="Name" required="true"
+					requiredMessage="Department Name is mandatory" />
+				<h:message for="Name" styleClass="form-text text-danger" />
+			</div>
+
+			<h:commandButton styleClass="btn btn-primary"
+				action="#{departmentController.updateDepartment(department)}">
+				<i class="far fa-save"></i> Update
+			</h:commandButton>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

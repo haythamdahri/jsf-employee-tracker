@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<ui:composition template="/WEB-INF/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- Redefine page title -->
+	<ui:define name="title">Update the employee</ui:define>
+
+	<!-- @Redefine Content section -->
+	<ui:define name="content">
+		<h2>Update the employee</h2>
+
+		<h:form>
+			<h:inputHidden value="#{employee.id}" />
+			<div class="form-group">
+				<h:outputLabel>First Name:</h:outputLabel>
+				<h:inputText value="#{employee.firstName}" styleClass="form-control"
+					id="firstName" required="true"
+					requiredMessage="First Name is mandatory" />
+				<h:message for="firstName" styleClass="form-text text-danger" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel>Last Name:</h:outputLabel>
+				<h:inputText value="#{employee.lastName}" styleClass="form-control"
+					id="lastName" required="true"
+					requiredMessage="Last Name is mandatory" />
+				<h:message for="lastName" styleClass="form-text text-danger" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel>Email:</h:outputLabel>
+				<h:inputText value="#{employee.email}" styleClass="form-control"
+					id="email" required="true" requiredMessage="Email is mandatory" />
+				<h:message for="email" styleClass="form-text text-danger" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel>Department:</h:outputLabel>
+				<h:selectOneMenu value="#{employee.department}"
+					styleClass="form-control" converter="departmentConverter">
+					<f:selectItems value="#{employeeController.departments}"
+						var="tempDepartment" itemLabel="#{tempDepartment.name}"
+						itemValue="#{tempDepartment}" />
+				</h:selectOneMenu>
+			</div>
+
+			<h:commandLink styleClass="btn btn-primary"
+				action="#{employeeController.updateEmployee(employee)}">
+				<i class="far fa-save"></i> Update
+			</h:commandLink>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
